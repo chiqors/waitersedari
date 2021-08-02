@@ -2,14 +2,30 @@
 
 require_once('OrderFactory.php');
 
-$commision1 = new OrderFactory("Soto Betawi (+Telor Dadar)", 2);
-$order1 = $commision1->build();
-
-$commision2 = new OrderFactory("Soto Boyolali + Nasi", 2);
-$order2 = $commision2->build();
-
-$commision3 = new OrderFactory("Nasi Box Paket A", 1);
-$order3 = $commision3->build();
+$order = new OrderFactory(
+            [
+                [
+                    '1', [
+                        ["Soto Betawi (+Telor Dadar)", 2],
+                        ["Soto Boyolali + Nasi", 2],
+                        ["Nasi Box Paket A", 1],
+                    ],
+                ], [
+                    '2', [
+                        ["Ayam Goreng", 1],
+                        ["Ayam Bakar + Nasi", 2],
+                        ["Nasi Box Paket B", 1],
+                    ],
+                ], [
+                    '3', [
+                        ["Puyuh Bakar", 3],
+                        ["Soto Boyolali + Nasi", 1],
+                        ["Nasi Box Paket C", 1],
+                    ]
+                ]
+            ]
+        );
+$data_pesanan = $order->build();
 
 ?>
 <!---- Views ---->
@@ -22,25 +38,24 @@ $order3 = $commision3->build();
     <title>FactoryMethod</title>
 </head>
 <body>
-    <h1>Daftar Pesanan Meja No 1</h1>
+    <?php foreach($data_pesanan as $meja_pesanan) : ?>
+    <h1>Daftar Pesanan Meja Nomor <?php echo $meja_pesanan[0] ?></h1>
     <table border=1>
         <tr>
-            <th># Nomor</th>
+            <th># (Nomor)</th>
             <th>Nama Menu</th>
             <th>Jumlah Beli</th>
         </tr>
+        <?php $i = 0 ?>
+        <?php foreach($meja_pesanan[1] as $pesanan_menu) : ?>
         <tr>
-            <td>1</td>
-            <?php echo $order1->info(); ?>
+            <?php $i++; ?>
+            <td><?php echo $i ?></td>
+            <td><?php echo $pesanan_menu[0] ?></td>
+            <td><?php echo $pesanan_menu[1] ?></td>
         </tr>
-        <tr>
-            <td>2</td>
-            <?php echo $order2->info(); ?>
-        </tr>
-        <tr>
-            <td>3</td>
-            <?php echo $order3->info(); ?>
-        </tr>
+        <?php endforeach; ?>
     </table>
+    <?php endforeach; ?>
 </body>
 </html>

@@ -1,23 +1,22 @@
 <?php
 
-require_once('OrderCustom.php');
 require_once('Order.php');
 
 class OrderFactory
 {
     private $customs;
 
-    public function __construct($nama_menu, $jumlah_beli)
+    public function __construct($order)
     {
-        $customs = new OrderCustom();
-        $customs->nama_menu = $nama_menu;
-        $customs->jumlah_beli = $jumlah_beli;
+        $customs = [];
+        $customs = $order;
 
         $this->customs = $customs;
     }
 
     public function build()
     {
-        return new Order($this->customs);
+        $build = new Order($this->customs);
+        return $build->info();
     }
 }

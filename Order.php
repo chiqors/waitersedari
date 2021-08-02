@@ -1,23 +1,17 @@
 <?php
 
-require_once('OrderCustom.php');
 
 class Order
 {
-    private $nama_menu;
-    private $jumlah_beli;
+    private $order;
 
-    public function __construct(OrderCustom $options)
+    public function __construct($options)
     {
-        $this->nama_menu = $options->nama_menu;
-        $this->jumlah_beli = $options->jumlah_beli;
+        $this->order = $options;
     }
 
     public function info()
     {
-        return "
-            <td>$this->nama_menu</td>
-            <td>$this->jumlah_beli</td>
-        ";
+        return $this->order;
     }
 }
